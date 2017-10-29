@@ -23,7 +23,8 @@ def generate_news():
     print("")
     if topics:
         for t in topics:
-            print(" - [{fancy_title}]({BASE_URL}/t/{id}/{slug})".format(BASE_URL=BASE_URL, **t))
+            print(" - {state}[{fancy_title}]({BASE_URL}/t/{id}/{slug}) ({posts_count})".format(
+                  BASE_URL=BASE_URL, state="🔒" if t["closed"] else "", **t))
 
     else:
         print("_Keine Neuigkeiten_")
