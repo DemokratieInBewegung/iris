@@ -2,17 +2,18 @@
 
 import requests
 from datetime import datetime, date, timedelta
+import dateutil.parser
 
 SHOW_LAST_X_DAYS_OF_NEWS = 7
 SHOW_LAST_X_DAYS_OF_INIS = 7
 BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=%23ankuendigungen-news%20after%3A{}%20order%3Alatest_topic"
+EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
 
 VOTING_BASE_URL = "http://localhost:8000" # feature doesn't exist yet on live
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
 
 DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "HEUTE"]
-
 
 def generate_header():
     print("""# DiB Digest
@@ -122,8 +123,30 @@ def generate_inis():
         print("")
 
 def generate_events():
+    today_iso = datetime.today().isoformat()
+    resp = requests.get(EVENTS_URL)
+    events = []
+    for t in resp.json()['topics']:
+        topic = requests.get(BASE_URL + "/t/{slug}/{id}.json".format(**t)).json()
+        if topic.get("event") and topic["event"]["start"] > today_iso:
+            topic["event"]["start"] = dateutil.parser.parse(topic["event"]["start"])
+            events.append(topic)
+
+
     print("## Veranstaltungen")
-    print("_noch zu erstellen_")
+    if events:
+        for e in sorted(events, key=lambda x: x["event"]["start"]):
+            location = ""
+            if "location" in e and "name" in e["location"]:
+                location = e["location"]["name"]
+
+            print(" - _{date}_: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
+                    BASE_URL=BASE_URL,
+                    loc=location,
+                    date=e["event"]["start"].strftime("%d.%b"),
+                    **e)) 
+    else:
+        print("_keine Veranstaltungen geplant_")
     print("")
 
 def generate_community():
