@@ -16,6 +16,9 @@ downloads/
 eggs/
 .eggs/
 lib/
+bin/
+include/
+pip-selfcheck.json
 lib64/
 parts/
 sdist/
