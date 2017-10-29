@@ -44,7 +44,7 @@ def generate_news():
 
 
 def generate_inis():
-    resp = requests.get(VOTING_BASE_URL, headers={
+    resp = requests.get(VOTING_URL, headers={
         "X-Requested-With": "XMLHttpRequest",
         "accept": "application/json"})
     inis = resp.json()["content"]["initiatives"]
