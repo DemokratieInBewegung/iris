@@ -9,6 +9,8 @@ SHOW_LAST_X_DAYS_OF_INIS = 7
 BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=%23ankuendigungen-news%20after%3A{}%20order%3Alatest_topic"
 EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
+RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=#ankuendigungen-news:wir-suchen status:open after:2017-10-10 order:latest_topic"
+TOP_URL = BASE_URL + "/top/monthly.json"
 
 VOTING_BASE_URL = "http://localhost:8000" # feature doesn't exist yet on live
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
@@ -151,12 +153,33 @@ def generate_events():
 
 def generate_community():
     print("## Community Highlights")
-    print("_noch zu erstellen_")
+
+    print("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
+    for t in requests.get(TOP_URL).json()["topic_list"]["topics"]:
+            print(" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
+                  BASE_URL=BASE_URL, state="🔒" if t["closed"] else "", **t))
+
+
+
     print("")
+
+    resp = requests.get(RECRUITING_URL).json()
+    if "topics" in resp:
+        print("## Aktuelle Gesuche")
+        print("")
+        for p in resp["topics"]:
+            print(" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+                  BASE_URL=BASE_URL, **p))
+        print("")
 
     print("## Zitat der Woche")
     print("_noch zu erstellen_")
     print("")
+
+def generate_footer():
+    print("----")
+    print("Das war's für diese Woche! ")
+
 
 def main():
     generate_header()
@@ -164,6 +187,7 @@ def main():
     generate_inis()
     generate_events()
     generate_community()
+    generate_footer()
 
 if __name__ == '__main__':
     main()
