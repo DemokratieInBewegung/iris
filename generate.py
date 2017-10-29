@@ -4,28 +4,37 @@ import requests
 from datetime import datetime, date, timedelta
 import dateutil.parser
 
-SHOW_LAST_X_DAYS_OF_NEWS = 7
+SHOW_LAST_X_DAYS_OF_NEWS = 8
 SHOW_LAST_X_DAYS_OF_INIS = 7
+
 BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=%23ankuendigungen-news%20after%3A{}%20order%3Alatest_topic"
 EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
 RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=#ankuendigungen-news:wir-suchen status:open after:2017-10-10 order:latest_topic"
 TOP_URL = BASE_URL + "/top/monthly.json"
 
+TODAY = datetime.today()
+if TODAY.weekday() != 6:
+    # If we aren't on Sunday, move to next Sunday
+    TODAY += timedelta(days=6 - TODAY.weekday())
+
 VOTING_BASE_URL = "http://localhost:8000" # feature doesn't exist yet on live
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
 
-DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "HEUTE"]
+DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
+                "Freitag", "Samstag", "Sonntag"]
+
 
 def generate_header():
     print("""# DiB Digest
 Das Wichtigste aus DEMOKRATIE IN BEWEGUNG in einer wöchentlichen Zusammenfassung
 _Ausgabe {} vom {}_
 
-""".format(datetime.today().strftime("%Y.%W"), datetime.today().strftime("%d.%m.%Y")))
+""".format(TODAY.strftime("%Y.%W"), TODAY.strftime("%d.%m.%Y")))
+
 
 def generate_news():
-    earliest = datetime.today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS)
+    earliest = TODAY - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS)
     resp = requests.get(NEWS_URL.format(earliest.strftime("%Y-%m-%d")))
     topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
                     resp.json()["topics"])
@@ -35,7 +44,9 @@ def generate_news():
     if topics:
         for t in topics:
             print(" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
-                  BASE_URL=BASE_URL, state="🔒" if t["closed"] else "", **t))
+                  BASE_URL=BASE_URL,
+                  state="🔒 " if t["closed"] else "",
+                  **t))
 
     else:
         print("_Keine Neuigkeiten_")
@@ -55,8 +66,8 @@ def generate_inis():
     to_discuss = []
     ended_recently = []
 
-    urgent = date.today() + timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)
-    recent = (date.today() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
+    urgent = TODAY.date() + timedelta(days=SHOW_LAST_X_DAYS_OF_INIS + 1)
+    recent = (TODAY.date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
 
     for ini in inis:
         if not ini['end_of_this_phase']: continue
@@ -86,7 +97,7 @@ def generate_inis():
         for ini in vote_urgent:
             print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, _endet {weekday}_ ".format(
                   BASE_URL=VOTING_BASE_URL,
-                  weekday=DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
+                  weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
 
         for ini in to_vote:
@@ -104,7 +115,7 @@ def generate_inis():
         for ini in discuss_urgent:
             print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, _endet {weekday}_ ".format(
                   BASE_URL=VOTING_BASE_URL,
-                  weekday=DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
+                  weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
 
         for ini in to_discuss:
@@ -125,8 +136,9 @@ def generate_inis():
         print("")
     print("")
 
+
 def generate_events():
-    today_iso = datetime.today().isoformat()
+    today_iso = TODAY.isoformat()
     resp = requests.get(EVENTS_URL)
     events = []
     for t in resp.json()['topics']:
@@ -153,6 +165,7 @@ def generate_events():
         print("_keine Veranstaltungen geplant_")
     print("")
 
+
 def generate_community():
     print("## Community Highlights")
     print("")
@@ -160,7 +173,9 @@ def generate_community():
     print("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
     for t in requests.get(TOP_URL).json()["topic_list"]["topics"]:
             print(" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
-                  BASE_URL=BASE_URL, state="🔒" if t["closed"] else "", **t))
+                  BASE_URL=BASE_URL,
+                  state="🔒 " if t["closed"] else "",
+                  **t))
 
 
 
@@ -178,11 +193,13 @@ def generate_community():
     print("## Zitat der Woche")
     print("_noch zu erstellen_")
     print("")
+    print("Du hast nen gutes Zitat? [Lass es uns wissen!](https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175)")
+
 
 def generate_footer():
     print("----")
-    print("Das war's für diese Woche! ")
-
+    print("Das war's für diese Woche! Wir wünschen euch einen schönen Sonntag und eine erfolgreiche Woche")
+    print("_Diese Ausgabe wurde kuratiert von XX, YY und [Ben](https://marktplatz.bewegung.jetzt/u/ben/)._")
 
 def main():
     generate_header()
