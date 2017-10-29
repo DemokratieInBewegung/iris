@@ -123,6 +123,7 @@ def generate_inis():
                   **ini))
 
         print("")
+    print("")
 
 def generate_events():
     today_iso = datetime.today().isoformat()
@@ -136,6 +137,7 @@ def generate_events():
 
 
     print("## Veranstaltungen")
+    print("")
     if events:
         for e in sorted(events, key=lambda x: x["event"]["start"]):
             location = ""
@@ -145,7 +147,7 @@ def generate_events():
             print(" - _{date}_: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
                     BASE_URL=BASE_URL,
                     loc=location,
-                    date=e["event"]["start"].strftime("%d.%b"),
+                    date=e["event"]["start"].strftime("%d. %b"),
                     **e)) 
     else:
         print("_keine Veranstaltungen geplant_")
@@ -153,6 +155,7 @@ def generate_events():
 
 def generate_community():
     print("## Community Highlights")
+    print("")
 
     print("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
     for t in requests.get(TOP_URL).json()["topic_list"]["topics"]:
