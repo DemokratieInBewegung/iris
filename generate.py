@@ -3,6 +3,13 @@
 import requests
 from datetime import datetime, date, timedelta
 import dateutil.parser
+import os
+
+if not "DC_TOKEN" in os.environ:
+    print("Please specify the Discourse API token as DC_TOKEN!")
+    exit(1)
+
+DC_TOKEN = os.environ['DC_TOKEN']
 
 SHOW_LAST_X_DAYS_OF_NEWS = 8
 SHOW_LAST_X_DAYS_OF_INIS = 7
@@ -12,13 +19,14 @@ NEWS_URL = BASE_URL + "/search.json?expanded=true&q=%23ankuendigungen-news%20aft
 EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
 RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=#ankuendigungen-news:wir-suchen status:open after:2017-10-10 order:latest_topic"
 TOP_URL = BASE_URL + "/top/monthly.json"
+QUOTES_URL = "https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175.json?api_key={}&api_username=system".format(DC_TOKEN)
 
 TODAY = datetime.today()
 if TODAY.weekday() != 6:
     # If we aren't on Sunday, move to next Sunday
     TODAY += timedelta(days=6 - TODAY.weekday())
 
-VOTING_BASE_URL = "http://localhost:8000" # feature doesn't exist yet on live
+VOTING_BASE_URL = "https://abstimmen.bewegung.jetzt" # feature doesn't exist yet on live
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
 
 DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
@@ -191,10 +199,30 @@ def generate_community():
         print("")
 
     print("## Zitat der Woche")
-    print("_noch zu erstellen_")
+
+    recent = (TODAY.date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
+    resp = requests.get(QUOTES_URL).json()
+    new_quotes = sorted(filter(lambda x: x['created_at'] > recent,
+                               resp["post_stream"]["posts"],),
+                        reverse=True,
+                        key=lambda p: ([x['count'] for x in p["actions_summary"]
+                                        if x['id'] == 2] or (0,))[0])
+
+    if new_quotes:
+        print("_Vorlage der neuen Zitate, bei meisten Likes:_")
+        for p in new_quotes[:3]:
+            print("""
+---
+> {cooked}
+
+> — eingereicht durch [{display_username}(@{username})](https://makrtplatz.bewegung.jetzt/u/{username})
+""".format(**p))
+
+    else:
+        print("_keine neuen Zitate gefunden_")
     print("")
     print("Du hast nen gutes Zitat? [Lass es uns wissen!](https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175)")
-
+    print("")
 
 def generate_footer():
     print("----")
