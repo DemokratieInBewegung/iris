@@ -1,10 +1,12 @@
 extends: default.liquid
 ---
 
-<h3>Aktuelle Ausgabe:</h3>
+{% assign post = posts|first%}
+<div class="edition">Aktuelle Ausgabe {{post.edition}} vom {{post.date | date:"%d.%m.%Y"}}:</div>
+<h1 class="edition-title"><a href="{{post.path}}">{{post.title}}</a></h1>
+
 <hr />
 
-{% assign post = posts|first%}
 {{post.content}}
 
 {% if post.prev %}

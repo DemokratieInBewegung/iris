@@ -80,3 +80,14 @@ nav h1 {
   text-align: center;
   display: inline-block;
 }
+
+
+/* CONTENT */
+
+.edition {
+  font-size: 0.8em;
+}
+
+.edition-title {
+  margin-top: 0;
+}

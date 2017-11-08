@@ -21,6 +21,11 @@
         
       </nav>
       <section role="content" id="main">
+        {% if is_post %}
+          <div class="edition">Iris {{edition}} vom {{date | date:"%d.%m.%Y"}}:</div>
+          <h1  class="edition-title">{{title}}</h1>
+          <hr />
+        {% endif %}
         {{ content }}
       </section>
       <footer>
