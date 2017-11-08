@@ -1,0 +1,15 @@
+name: Iris
+source: "."
+dest: "build"
+ignore:
+  - .git/*
+  - build/*
+  - generate.py
+  - pip-selfcheck.json
+  - bin
+  - lib
+  - include
+  - requirements.txt
+  - README.md
+  - LICENSE
+  - examples
