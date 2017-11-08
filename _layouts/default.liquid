@@ -5,16 +5,27 @@
         {% if is_post %}
           <title>{{ title }}</title>
         {% else %}
-       	  <title>Cobalt.rs Blog</title>
+       	  <title>Iris, Die Wochenzusammenfassung zu DEMOKRATIE IN BEWEGUNG</title>
         {% endif %}
+
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
     </head>
     <body>
-    <div>
-      {% if is_post %}
-        {% include '_layouts/post.liquid' %}
-      {% else %}
+      <nav>
+        <a href="/"><img
+            class="logo"
+            alt="Iris logo: a rainbow colored flower."
+            src="/static/iris-logo.png"></a>
+        <h1><a href="/">Iris</a></h1>
+        <p class="subtitle">Jeden Sonntag, das Wichtigste aus&nbsp;<a href="https://bewegung.jetzt" target="_blank">DEMOKRATIE&nbsp;IN&nbsp;BEWEGUNG</a> in Deiner Inbox!</p>
+        
+      </nav>
+      <section role="content" id="main">
         {{ content }}
-      {% endif %}
-    </div>
+      </section>
+      <footer>
+        
+      </footer>
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans|Merriweather" rel="stylesheet" type="text/css" />
   </body>
 </html>
