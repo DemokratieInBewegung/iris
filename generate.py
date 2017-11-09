@@ -61,6 +61,15 @@ def generate_news():
 
     print("")
 
+    resp = requests.get(RECRUITING_URL).json()
+    if "topics" in resp:
+        print("### Aktuelle Gesuche")
+        print("")
+        for p in resp["topics"]:
+            print(" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+                  BASE_URL=BASE_URL, **p))
+        print("")
+
 
 def generate_inis():
     resp = requests.get(VOTING_URL, headers={
@@ -188,15 +197,6 @@ def generate_community():
 
 
     print("")
-
-    resp = requests.get(RECRUITING_URL).json()
-    if "topics" in resp:
-        print("## Aktuelle Gesuche")
-        print("")
-        for p in resp["topics"]:
-            print(" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
-                  BASE_URL=BASE_URL, **p))
-        print("")
 
     print("## Zitat der Woche")
 
