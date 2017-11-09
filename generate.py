@@ -215,8 +215,8 @@ def generate_community():
 ---
 > {cooked}
 
-> — eingereicht durch [{display_username}(@{username})](https://makrtplatz.bewegung.jetzt/u/{username})
-""".format(**p))
+> — eingereicht durch [{display_username}(@{username})]({BASE_URL}/u/{username})
+""".format(BASE_URL=BASE_URL, **p))
 
     else:
         print("_keine neuen Zitate gefunden_")
