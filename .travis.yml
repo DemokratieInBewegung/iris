@@ -19,8 +19,8 @@ before_deploy:
 
 deploy:
   provider: script
+  skip_cleanup: true
   script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/$COBALT_BUILD_DIR root@nick.bewegung.jetzt:/var/dib/iris/build
   on:
     branch: master
-    skip_cleanup: true
     condition: '"$TRAVIS_PULL_REQUEST" = "false"'
