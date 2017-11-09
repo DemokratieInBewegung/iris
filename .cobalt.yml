@@ -4,6 +4,7 @@ link: https://iris.bewegung.jetzt/
 source: "."
 dest: "build"
 rss: "rss.xml"
+post_path: "ausgaben/:edition/"
 
 ignore:
   - .git/*

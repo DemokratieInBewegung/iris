@@ -2,7 +2,7 @@ extends: default.liquid
 ---
 
 {% assign post = posts|first%}
-<div class="edition"><a href="/{{post.path}}">Aktuelle Ausgabe {{post.edition}}</a> vom {{post.date | date:"%d.%m.%Y"}}:</div>
+<div class="edition"><a href="/{{post.path|replace:'index.html',''}}">Aktuelle Ausgabe {{post.edition}}</a> vom {{post.date | date:"%d.%m.%Y"}}:</div>
 <h1 class="edition-title">{{post.title}}</h1>
 
 <hr />
