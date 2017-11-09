@@ -47,7 +47,7 @@ def generate_news():
     topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
                     resp.json()["topics"])
 
-    print("## Neuigkeiten & Bekanntmachungen")
+    print("## Neuigkeiten")
     print("")
     if topics:
         for t in topics:

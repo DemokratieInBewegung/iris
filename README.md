@@ -66,7 +66,7 @@ Checkliste vor jedem Abschicken:
 ## Editionen/Script:
 
 - [ ] Gendern
-- [ ] “Neuigkeiten & Bekanntmachung” → “Neuigkeiten”
+- [*] “Neuigkeiten & Bekanntmachung” → “Neuigkeiten”
 - [*] Wir-suchen als Unterpunkt in Neuigkeiten
 - [ ] Ausgaben-Format: 2017/45
 - [ ] Sabine’s-Link funktionierte nicht
