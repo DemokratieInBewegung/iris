@@ -49,7 +49,7 @@ Checkliste vor jedem Abschicken:
 
 ## Webseite:
 
- - [ ] das Impressum muss noch gemacht werden, insb. uns Kurator/innen dort ausführen
+ - [*] das Impressum muss noch gemacht werden, insb. uns Kurator/innen dort ausführen
  - [*] das Seiten-Menu geht noch nicht gescheit auf mobile.
  - [*] einen neuen Eintrag hinzufügen und sehen ob der (aktuell nicht angezeigte) "Vorherige Ausgabe"-Link funzt
  - [*] RSS, damit Leute auch mit-nicht-per-email abonnieren können

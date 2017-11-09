@@ -165,6 +165,25 @@ form.mautic {
   font-size: 0.85em;
 }
 
+/* Redaktion */
+.profiles {
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 4em;
+}
+
+.profiles ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.profiles ul li {
+  padding: 0 0.25em;
+}
+
+
 
 /* SPECIALS */
 
@@ -243,5 +262,11 @@ form.mautic {
     text-align: center;
     margin-top: 0.25em;
     color: #666;
+  }
+
+
+  .profiles ul {
+    display: flex;
+    flex-direction: column;
   }
 }
