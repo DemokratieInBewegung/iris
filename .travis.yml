@@ -1,0 +1,25 @@
+sudo: false
+language: rust
+addons:
+  ssh_known_hosts: nick.bewegung.jetzt
+env:
+- COBALT_BUILD_DIR: build
+before_script:
+- cargo install cobalt-bin
+- export PATH="$PATH:/home/travis/.cargo/bin"
+script:
+- cobalt build
+
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_5dee9ab00760_key -iv $encrypted_5dee9ab00760_iv
+  -in .deploy/deploy_rsa.enc -out /tmp/deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
+
+deploy:
+  on:
+    branch: master
+    skip_cleanup: true
+    condition: '"$TRAVIS_PULL_REQUEST" = "false"'
+    script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/$COBALT_BUILD_DIR root@nick.bewegung.jetzt:/var/dib/iris/build
