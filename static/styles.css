@@ -96,6 +96,15 @@ nav h1 {
   margin: 0.5em 0 0.1em 0;
 }
 
+footer svg {
+  fill: #999;
+  transition: 0.25s fill;
+}
+
+footer a:hover svg {
+  fill: #333;
+}
+
 .subtitle {
   margin: 0 2em;
   text-align: center;

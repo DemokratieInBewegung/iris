@@ -52,7 +52,8 @@ Checkliste vor jedem Abschicken:
  - [ ] das Impressum muss noch gemacht werden, insb. uns Kurator/innen dort ausführen
  - [ ] das Seiten-Menu geht noch nicht gescheit auf mobile.
  - [*] einen neuen Eintrag hinzufügen und sehen ob der (aktuell nicht angezeigte) "Vorherige Ausgabe"-Link funzt
- - [ ] RSS, damit Leute auch mit-nicht-per-email abonnieren können
+ - [*] RSS, damit Leute auch mit-nicht-per-email abonnieren können
+ - [*] Add Link to Github
  - [ ] Social-Media-Embed-Meta-Data (damit es bei FB, Twitter und auf dem Marktplatz nett angezeigt wird)
  - [*] Headline-Stufe 3 nicht fett
  - [*] Titel-Zeile “Diese Woche bei DiB”

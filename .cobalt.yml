@@ -1,6 +1,10 @@
-name: Iris
+name: Iris — Diese Woche in DiB
+description: "Jeden Sonntag, das Wichtigste aus DEMOKRATIE IN BEWEGUNG in Deiner Inbox!"
+link: https://iris.bewegung.jetzt/
 source: "."
 dest: "build"
+rss: "rss.xml"
+
 ignore:
   - .git/*
   - build/*
