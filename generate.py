@@ -34,11 +34,13 @@ DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
 
 
 def generate_header():
-    print("""# DiB Digest
-Das Wichtigste aus DEMOKRATIE IN BEWEGUNG in einer wöchentlichen Zusammenfassung
-_Ausgabe {} vom {}_
+    print("""Iris {edition} vom {date}
+# Title: HIER_EINTRAGEN - Iris {edition}
 
-""".format(TODAY.strftime("%Y.%W"), TODAY.strftime("%d.%m.%Y")))
+---
+
+""".format(edition=TODAY.strftime("%Y/%W"),
+           date=TODAY.strftime("%d.%m.%Y")))
 
 
 def generate_news():

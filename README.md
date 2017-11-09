@@ -55,7 +55,7 @@ Checkliste vor jedem Abschicken:
  - [ ] RSS, damit Leute auch mit-nicht-per-email abonnieren können
  - [ ] Social-Media-Embed-Meta-Data (damit es bei FB, Twitter und auf dem Marktplatz nett angezeigt wird)
  - [ ] Headline-Stufe 3 nicht fett
- - [ ] Ausgaben-Format: 2017/45
+ - [*] Ausgaben-Format: 2017/45
 
 ## Mailer:
 
@@ -68,5 +68,5 @@ Checkliste vor jedem Abschicken:
 - [ ] Gendern
 - [*] “Neuigkeiten & Bekanntmachung” → “Neuigkeiten”
 - [*] Wir-suchen als Unterpunkt in Neuigkeiten
-- [ ] Ausgaben-Format: 2017/45
+- [*] Ausgaben-Format: 2017/45
 - [*] Sabine’s-Link funktionierte nicht
