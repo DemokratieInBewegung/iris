@@ -54,13 +54,13 @@ Checkliste vor jedem Abschicken:
  - [ ] einen neuen Eintrag hinzufügen und sehen ob der (aktuell nicht angezeigte) "Vorherige Ausgabe"-Link funzt
  - [ ] RSS, damit Leute auch mit-nicht-per-email abonnieren können
  - [ ] Social-Media-Embed-Meta-Data (damit es bei FB, Twitter und auf dem Marktplatz nett angezeigt wird)
- - [ ] Headline-Stufe 3 nicht fett
+ - [*] Headline-Stufe 3 nicht fett
  - [*] Titel-Zeile “Diese Woche bei DiB”
  - [*] Ausgaben-Format: 2017/45
 
 ## Mailer:
 
- - [ ] Headline-Stufe 3 nicht fett
+ - [*] Headline-Stufe 3 nicht fett
  - [*] Titel-Zeile “Diese Woche bei DiB”
  - [*] Ausgaben-Format: 2017/45
 
