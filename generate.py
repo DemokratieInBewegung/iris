@@ -117,7 +117,7 @@ def generate_inis():
         print("Aktuell stehen die folgenden Initiativen zur Abstimmung:")
         print("")
         for ini in vote_urgent:
-            print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, _endet {weekday}_ ".format(
+            print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
                   BASE_URL=VOTING_BASE_URL,
                   weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
@@ -135,7 +135,7 @@ def generate_inis():
         print("")
         print("### in Diskussion")
         for ini in discuss_urgent:
-            print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, _endet {weekday}_ ".format(
+            print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
                   BASE_URL=VOTING_BASE_URL,
                   weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
@@ -232,7 +232,7 @@ def generate_community():
 def generate_footer():
     print("----")
     print("Das war's für diese Woche! Wir wünschen euch einen schönen Sonntag und eine erfolgreiche Woche")
-    print("_Diese Ausgabe wurde kuratiert von XX, YY und [Ben](https://marktplatz.bewegung.jetzt/u/ben/)._")
+    print("Diese Ausgabe wurde kuratiert von XX, YY und [Ben](https://marktplatz.bewegung.jetzt/u/ben/).")
 
 def main():
     generate_header()
