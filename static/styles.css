@@ -27,7 +27,7 @@ blockquote {
   border-left: 0.2em solid #aaa;
   background: #eee;
   padding: 0.125em;
-  padding-left: 1em
+  padding-left: 1em;
   margin-left: 1em;
   font-style: italic;
 }
@@ -45,6 +45,22 @@ footer {
   font-size: 0.8em;
   line-height: 0.9em;
   text-align: center;
+}
+
+footer ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+footer ul li {
+  display: inline;
+  padding-right: 0.5em;
+}
+
+footer ul li:not(:first-child)::before {
+  content: "|";
+  padding-right: 0.5em;
 }
 
 
@@ -67,6 +83,7 @@ img.logo {
   max-width: 85%;
   display: block;
   margin: 1em auto;
+  max-height: 25vh;
 }
 
 nav h1 {
@@ -119,4 +136,10 @@ form.mautic {
   margin-top: 0;
 }
 
+
+/* SPECIALS */
+
+.heart {
+  color: #de00ff;
+}
 
