@@ -34,8 +34,11 @@ DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
 
 
 def generate_header():
-    print("""Iris {edition} vom {date}
-# Title: HIER_EINTRAGEN - Iris {edition}
+    print("""
+title: HIER_EINTRAGEN
+edition: {edition}
+date: {date} 04:00:00 +0100
+email_subject: HIER_EINTRAGEN — Iris {edition}
 
 ---
 
