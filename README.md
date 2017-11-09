@@ -61,8 +61,8 @@ Checkliste vor jedem Abschicken:
 ## Mailer:
 
  - [ ] Headline-Stufe 3 nicht fett
- - [ ] Titel-Zeile “Diese Woche bei DiB”
- - [ ] Ausgaben-Format: 2017/45
+ - [*] Titel-Zeile “Diese Woche bei DiB”
+ - [*] Ausgaben-Format: 2017/45
 
 ## Editionen/Script:
 
