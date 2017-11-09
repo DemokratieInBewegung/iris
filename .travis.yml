@@ -18,8 +18,9 @@ before_deploy:
 - ssh-add /tmp/deploy_rsa
 
 deploy:
+  provider: script
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/$COBALT_BUILD_DIR root@nick.bewegung.jetzt:/var/dib/iris/build
   on:
     branch: master
     skip_cleanup: true
     condition: '"$TRAVIS_PULL_REQUEST" = "false"'
-    script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/$COBALT_BUILD_DIR root@nick.bewegung.jetzt:/var/dib/iris/build
