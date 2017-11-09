@@ -15,9 +15,9 @@ SHOW_LAST_X_DAYS_OF_NEWS = 8
 SHOW_LAST_X_DAYS_OF_INIS = 7
 
 BASE_URL = "https://marktplatz.bewegung.jetzt"
-NEWS_URL = BASE_URL + "/search.json?expanded=true&q=%23ankuendigungen-news%20after%3A{}%20order%3Alatest_topic"
+NEWS_URL = BASE_URL + "/search.json?expanded=true&q=category:13 after:{} order:latest_topic"
 EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
-RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=#ankuendigungen-news:wir-suchen status:open after:2017-10-10 order:latest_topic"
+RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic"
 TOP_URL = BASE_URL + "/top/monthly.json"
 QUOTES_URL = "https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175.json?api_key={}&api_username=system".format(DC_TOKEN)
 
@@ -35,15 +35,16 @@ DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
 
 def generate_header():
     print("""
+extends: default.liquid
 title: HIER_EINTRAGEN
 edition: {edition}
-date: {date} 04:00:00 +0100
+date: {date} 4:00:00 +0100
 email_subject: HIER_EINTRAGEN — Iris {edition}
 
 ---
 
 """.format(edition=TODAY.strftime("%Y/%W"),
-           date=TODAY.strftime("%d.%m.%Y")))
+           date=TODAY.strftime("%d %B %Y")))
 
 
 def generate_news():
@@ -240,7 +241,7 @@ def main():
     generate_inis()
     generate_events()
     generate_community()
-    generate_footer()
+    # generate_footer()
 
 if __name__ == '__main__':
     main()
