@@ -56,6 +56,16 @@
           <hr />
         {% endif %}
         {{ content }}
+
+        <p class="page-controls">
+          {% if previous %}
+            <a href="/{{previous.path}}">« Vorherige Ausgabe</a>
+          {% endif %}
+
+          {% if next %}
+            <a href="/{{next.path}}">Nächste Ausgabe »</a>
+          {% endif %}
+        </p>
       </section>
       <link href="http://fonts.googleapis.com/css?family=Open+Sans|Merriweather" rel="stylesheet" type="text/css" />
   
