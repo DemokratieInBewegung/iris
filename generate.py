@@ -179,7 +179,7 @@ def generate_events():
             if "location" in e and "name" in e["location"]:
                 location = e["location"]["name"]
 
-            print(" - _{date}_: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
+            print(" - {date}: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
                     BASE_URL=BASE_URL,
                     loc=location,
                     date=e["event"]["start"].strftime("%d. %b"),
@@ -187,10 +187,13 @@ def generate_events():
     else:
         print("_keine Veranstaltungen geplant_")
     print("")
+    print("""
+Fehlt noch eine Veranstaltung? [Kündige diese passend auf dem Marktplatz an](https://marktplatz.bewegung.jetzt/t/veranstaltungen-fuer-iris-ankuendigen/11128?source_topic_id=2720) und sie wird mit aufgenommen!
+""")
 
 
 def generate_community():
-    print("## Community Highlights")
+    print("## Außerdem bewegt uns")
     print("")
 
     print("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
@@ -225,15 +228,19 @@ def generate_community():
 """.format(BASE_URL=BASE_URL, **p))
 
     else:
-        print("_keine neuen Zitate gefunden_")
+        print("_Diese Woche ist uns kein lustiges DiB-Zitat zugespielt worden ☹._")
     print("")
     print("Du hast nen gutes Zitat? [Lass es uns wissen!](https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175)")
     print("")
 
 def generate_footer():
-    print("----")
-    print("Das war's für diese Woche! Wir wünschen euch einen schönen Sonntag und eine erfolgreiche Woche")
-    print("Diese Ausgabe wurde kuratiert von XX, YY und [Ben](https://marktplatz.bewegung.jetzt/u/ben/).")
+    print("""
+---
+
+Iris wurde in dieser Woche zusammengestellt von dem besten [Ben](https://marktplatz.bewegung.jetzt/u/Ben/), der jubelnden [Johanna](https://marktplatz.bewegung.jetzt/u/Johanna/) und der leidenden [Lea](https://marktplatz.bewegung.jetzt/u/Leia/).
+
+Du hast Anregungen, Fragen, Kekse? [Melde Dich gerne bei uns](https://marktplatz.bewegung.jetzt/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
+""")
 
 def main():
     generate_header()
@@ -241,7 +248,7 @@ def main():
     generate_inis()
     generate_events()
     generate_community()
-    # generate_footer()
+    generate_footer()
 
 if __name__ == '__main__':
     main()
