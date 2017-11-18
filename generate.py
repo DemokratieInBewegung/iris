@@ -182,7 +182,7 @@ def generate_events():
             print(" - {date}: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
                     BASE_URL=BASE_URL,
                     loc=location,
-                    date=e["event"]["start"].strftime("%d. %b"),
+                    date=e["event"]["start"].strftime("%d.&nbsp;%b"),
                     **e)) 
     else:
         print("_keine Veranstaltungen geplant_")
