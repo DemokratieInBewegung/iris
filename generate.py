@@ -214,7 +214,7 @@ def generate_community():
     new_quotes = sorted(filter(lambda x: x['created_at'] > recent,
                                resp["post_stream"]["posts"],),
                         reverse=True,
-                        key=lambda p: ([x['count'] for x in p["actions_summary"]
+                        key=lambda p: ([x.get('count', 0) for x in p["actions_summary"]
                                         if x['id'] == 2] or (0,))[0])
 
     if new_quotes:
