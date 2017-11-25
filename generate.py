@@ -112,7 +112,7 @@ def generate_inis():
 
     print("## Initiativen")
     print("")
-    print("### Zur Abstimmung")
+    print("### zur Abstimmung")
 
     if vote_urgent or to_vote:
         print("Aktuell stehen die folgenden Initiativen zur Abstimmung:")
