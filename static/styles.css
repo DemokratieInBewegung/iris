@@ -151,6 +151,10 @@ form.mautic {
 
 /* CONTENT */
 
+#main img {
+  max-width: 100%;
+}
+
 .edition {
   font-size: 0.8em;
 }
