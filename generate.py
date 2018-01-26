@@ -17,7 +17,7 @@ SHOW_LAST_X_DAYS_OF_INIS = 7
 BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=category:13 after:{} order:latest_topic"
 EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
-RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic"
+RECRUITING_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic".format(DC_TOKEN)
 TOP_URL = BASE_URL + "/top/weekly.json"
 QUOTES_URL = "https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175.json?api_key={}&api_username=system".format(DC_TOKEN)
 
