@@ -83,16 +83,44 @@
         {% endif %}
         {{ content }}
 
-        <p class="page-controls">
-          {% if previous %}
-            <a href="/{{previous.path|replace:'index.html',''}}">« Vorherige Ausgabe</a>
-          {% endif %}
+        {% if is_post %}
+          <p class="page-controls">
+            {% if previous %}
+              <a href="/{{previous.path|replace:'index.html',''}}">« Vorherige Ausgabe</a>
+            {% endif %}
 
-          {% if next %}
-            <a href="/{{next.path|replace:'index.html',''}}">Nächste Ausgabe »</a>
-          {% endif %}
-        </p>
-      </section>
+            {% if next %}
+              <a href="/{{next.path|replace:'index.html',''}}">Nächste Ausgabe »</a>
+            {% endif %}
+          </p>
+        {% endif %}
+      <div class="subscribe-inline">
+        <div>
+          <h3>Immer auf dem Laufenden bleiben</h3>
+          <p>Trage hier Deine E-Mail-Adresse ein um Iris jeden Sonntag morgen in Deiner Inbox zu finden:</p>
+          <form class="mautic" autocomplete="false" role="form" method="post" action="https://mautic.bewegung.jetzt/form/submit?formId=3" id="mauticform_irissubscribe"  data-mautic-form="irissubscribe" enctype="multipart/form-data">
+            <div class="mauticform-error" id="mauticform_irissubscribe_error"></div>
+            <div class="mauticform-message" id="mauticform_irissubscribe_message"></div>
+            <div class="mauticform-innerform">
+
+                
+              <div class="mauticform-page-wrapper mauticform-page-1" data-mautic-form-page="1">
+
+                <div id="mauticform_irissubscribe_email"  class="mauticform-row mauticform-email mauticform-field-1">
+                    <span class="mauticform-errormsg" style="display: none;"></span>
+                    <input id="mauticform_input_irissubscribe_email" name="mauticform[email]" value="" placeholder="E-Mail Adresse" class="mauticform-input" type="email" /><button type="submit" name="mauticform[submit]" id="mauticform_input_irissubscribe_submit" name="mauticform[submit]" value="" class="mauticform-button btn btn-default" value="1">🖊</button>
+                </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="mauticform[formId]" id="mauticform_irissubscribe_id" value="3"/>
+            <input type="hidden" name="mauticform[return]" id="mauticform_irissubscribe_return" value=""/>
+            <input type="hidden" name="mauticform[formName]" id="mauticform_irissubscribe_name" value="irissubscribe"/>
+
+          </form> 
+
+        </div>
+      </div>
       <link href="http://fonts.googleapis.com/css?family=Open+Sans|Merriweather" rel="stylesheet" type="text/css" />
   
       <script type="text/javascript">
