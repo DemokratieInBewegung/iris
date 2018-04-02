@@ -18,6 +18,7 @@ BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=category:13 after:{} order:latest_topic"
 EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
 RECRUITING_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic".format(DC_TOKEN)
+PARTY_UPDATES_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:96 after:{{}} order:latest_topic".format(DC_TOKEN)
 TOP_URL = BASE_URL + "/top/weekly.json"
 QUOTES_URL = "https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175.json?api_key={}&api_username=system".format(DC_TOKEN)
 
@@ -26,7 +27,7 @@ if TODAY.weekday() != 6:
     # If we aren't on Sunday, move to next Sunday
     TODAY += timedelta(days=6 - TODAY.weekday())
 
-VOTING_BASE_URL = "https://abstimmen.bewegung.jetzt" # feature doesn't exist yet on live
+VOTING_BASE_URL = "https://abstimmen.bewegung.jetzt"
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
 
 DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
@@ -70,6 +71,15 @@ def generate_news():
     resp = requests.get(RECRUITING_URL).json()
     if "topics" in resp:
         yield ("### Aktuelle Gesuche")
+        yield ("")
+        for p in resp["topics"]:
+            yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+                  BASE_URL=BASE_URL, **p))
+        yield ("")
+
+    resp = requests.get(PARTY_UPDATES_URL.format(earliest.strftime("%Y-%m-%d"))).json()
+    if "topics" in resp:
+        yield ("### Partei Updates")
         yield ("")
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
