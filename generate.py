@@ -34,7 +34,7 @@ DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
 
 
 def generate_header():
-    print("""
+    yield ("""
 extends: default.liquid
 title: HIER_EINTRAGEN
 edition: {edition}
@@ -53,28 +53,28 @@ def generate_news():
     topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
                     resp.json()["topics"])
 
-    print("## Neuigkeiten")
-    print("")
+    yield ("## Neuigkeiten")
+    yield ("")
     if topics:
         for t in topics:
-            print(" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
+            yield (" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
                   BASE_URL=BASE_URL,
                   state="🔒 " if t["closed"] else "",
                   **t))
 
     else:
-        print("_Keine Neuigkeiten_")
+        yield ("_Keine Neuigkeiten_")
 
-    print("")
+    yield ("")
 
     resp = requests.get(RECRUITING_URL).json()
     if "topics" in resp:
-        print("### Aktuelle Gesuche")
-        print("")
+        yield ("### Aktuelle Gesuche")
+        yield ("")
         for p in resp["topics"]:
-            print(" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+            yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
                   BASE_URL=BASE_URL, **p))
-        print("")
+        yield ("")
 
 
 def generate_inis():
@@ -110,54 +110,54 @@ def generate_inis():
                 ended_recently.append(ini)
 
 
-    print("## Initiativen")
-    print("")
-    print("### zur Abstimmung")
+    yield ("## Initiativen")
+    yield ("")
+    yield ("### zur Abstimmung")
 
     if vote_urgent or to_vote:
-        print("Aktuell stehen die folgenden Initiativen zur Abstimmung:")
-        print("")
+        yield ("Aktuell stehen die folgenden Initiativen zur Abstimmung:")
+        yield ("")
         for ini in vote_urgent:
-            print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
+            yield (" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
                   BASE_URL=VOTING_BASE_URL,
                   weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
 
         for ini in to_vote:
-            print(" - [{title}]({BASE_URL}/initiative/{id}-{slug})".format(
+            yield (" - [{title}]({BASE_URL}/initiative/{id}-{slug})".format(
                   BASE_URL=VOTING_BASE_URL, **ini))
 
     else:
         # We show this every time to ensure People know it isn't left out
-        print("_Es aktuell keine Initiativen zur Abstimmung_")
+        yield ("_Es aktuell keine Initiativen zur Abstimmung_")
 
 
     if discuss_urgent or to_discuss:
-        print("")
-        print("### in Diskussion")
+        yield ("")
+        yield ("### in Diskussion")
         for ini in discuss_urgent:
-            print(" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
+            yield (" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
                   BASE_URL=VOTING_BASE_URL,
                   weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
 
         for ini in to_discuss:
-            print(" - [{title}]({BASE_URL}/initiative/{id}-{slug})".format(
+            yield (" - [{title}]({BASE_URL}/initiative/{id}-{slug})".format(
                   BASE_URL=VOTING_BASE_URL,**ini))
 
-        print("")
+        yield ("")
 
     if ended_recently:
-        print("### kürzlich abgestimmt")
-        print("")
+        yield ("### kürzlich abgestimmt")
+        yield ("")
         for ini in ended_recently:
-            print(" - {icon} [{title}]({BASE_URL}/initiative/{id}-{slug})".format(
+            yield (" - {icon} [{title}]({BASE_URL}/initiative/{id}-{slug})".format(
                   BASE_URL=VOTING_BASE_URL,
                   icon="👍" if ini['state'] == 'a' else "👎",
                   **ini))
 
-        print("")
-    print("")
+        yield ("")
+    yield ("")
 
 
 def generate_events():
@@ -171,43 +171,43 @@ def generate_events():
             events.append(topic)
 
 
-    print("## Veranstaltungen")
-    print("")
+    yield ("## Veranstaltungen")
+    yield ("")
     if events:
         for e in sorted(events, key=lambda x: x["event"]["start"]):
             location = ""
             if "location" in e and "name" in e["location"]:
                 location = e["location"]["name"]
 
-            print(" - {date}: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
+            yield (" - {date}: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
                     BASE_URL=BASE_URL,
                     loc=location,
                     date=e["event"]["start"].strftime("%d.&nbsp;%b"),
                     **e)) 
     else:
-        print("_keine Veranstaltungen geplant_")
-    print("")
-    print("""
+        yield ("_keine Veranstaltungen geplant_")
+    yield ("")
+    yield ("""
 Fehlt noch eine Veranstaltung? [Kündige diese passend auf dem Marktplatz an](https://marktplatz.bewegung.jetzt/t/veranstaltungen-fuer-iris-ankuendigen/11128?source_topic_id=2720) und sie wird mit aufgenommen!
 """)
 
 
 def generate_community():
-    print("## Außerdem bewegt uns")
-    print("")
+    yield ("## Außerdem bewegt uns")
+    yield ("")
 
-    print("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
+    yield ("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
     for t in requests.get(TOP_URL).json()["topic_list"]["topics"]:
-            print(" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
+            yield (" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
                   BASE_URL=BASE_URL,
                   state="🔒 " if t["closed"] else "",
                   **t))
 
 
 
-    print("")
+    yield ("")
 
-    print("## Zitat der Woche")
+    yield ("## Zitat der Woche")
 
     recent = (TODAY.date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
     resp = requests.get(QUOTES_URL).json()
@@ -218,9 +218,9 @@ def generate_community():
                                         if x['id'] == 2] or (0,))[0])
 
     if new_quotes:
-        print("_Vorlage der neuen Zitate, bei meisten Likes:_")
+        yield ("_Vorlage der neuen Zitate, bei meisten Likes:_")
         for p in new_quotes[:3]:
-            print("""
+            yield ("""
 ---
 > {cooked}
 
@@ -228,13 +228,13 @@ def generate_community():
 """.format(BASE_URL=BASE_URL, **p))
 
     else:
-        print("_Diese Woche ist uns kein lustiges DiB-Zitat zugespielt worden ☹._")
-    print("")
-    print("Du hast nen gutes Zitat? [Lass es uns wissen!](https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175)")
-    print("")
+        yield ("_Diese Woche ist uns kein lustiges DiB-Zitat zugespielt worden ☹._")
+    yield ("")
+    yield ("Du hast nen gutes Zitat? [Lass es uns wissen!](https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175)")
+    yield ("")
 
 def generate_footer():
-    print("""
+    yield ("""
 ---
 
 Iris wurde in dieser Woche zusammengestellt von dem besten [Ben](https://marktplatz.bewegung.jetzt/u/Ben/), der jubelnden [Johanna](https://marktplatz.bewegung.jetzt/u/Johanna/) und der leidenden [Lea](https://marktplatz.bewegung.jetzt/u/Leia/).
@@ -243,12 +243,10 @@ Du hast Anregungen, Fragen, Kekse? [Melde Dich gerne bei uns](https://marktplatz
 """)
 
 def main():
-    generate_header()
-    generate_news()
-    generate_inis()
-    generate_events()
-    generate_community()
-    generate_footer()
+    for fn in [generate_header, generate_news, generate_inis,
+               generate_events, generate_community, generate_footer]:
+        for p in fn():
+            print(p)
 
 if __name__ == '__main__':
     main()
