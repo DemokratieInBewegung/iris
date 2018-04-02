@@ -94,7 +94,7 @@ def generate_inis():
 
     for ini in inis:
         if not ini['end_of_this_phase']: continue
-        ini['end_of_this_phase'] = date(*map(int, ini['end_of_this_phase'].split("-")))
+        ini['end_of_this_phase'] = date(*map(int, ini['end_of_this_phase'].split("-"))) - timedelta(days=1)
         if ini['state'] == 'v': # in voting
             if ini['end_of_this_phase'] < urgent:
                 vote_urgent.append(ini)
