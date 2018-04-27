@@ -20,12 +20,18 @@ EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanst
 RECRUITING_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic".format(DC_TOKEN)
 PARTY_UPDATES_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:96 after:{{}} order:latest_topic".format(DC_TOKEN)
 TOP_URL = BASE_URL + "/top/weekly.json"
+NEW_TK_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:169 status:open order:latest_topic".format(DC_TOKEN)
+SK_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:153 status:open after:2018-01-10 order:latest_topic".format(DC_TOKEN)
+SURVEYS_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=tags:umfrage,stimmungsbild,mitmachen status:open after:{{}} order:latest_topic".format(DC_TOKEN)
+
 QUOTES_URL = "https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175.json?api_key={}&api_username=system".format(DC_TOKEN)
 
-TODAY = datetime.today()
-if TODAY.weekday() != 6:
-    # If we aren't on Sunday, move to next Sunday
-    TODAY += timedelta(days=6 - TODAY.weekday())
+def _today():
+    today = datetime.today()
+    if today.weekday() != 6:
+        # If we aren't on Sunday, move to next Sunday
+        today += timedelta(days=6 - today.weekday())
+    return today
 
 VOTING_BASE_URL = "https://abstimmen.bewegung.jetzt"
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
@@ -44,12 +50,12 @@ email_subject: HIER_EINTRAGEN — Iris {edition}
 
 ---
 
-""".format(edition=TODAY.strftime("%Y/%W"),
-           date=TODAY.strftime("%d %B %Y")))
+""".format(edition=_today().strftime("%Y/%W"),
+           date=_today().strftime("%d %B %Y")))
 
 
 def generate_news():
-    earliest = TODAY - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS)
+    earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS)
     resp = requests.get(NEWS_URL.format(earliest.strftime("%Y-%m-%d")))
     topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
                     resp.json()["topics"])
@@ -99,8 +105,8 @@ def generate_inis():
     to_discuss = []
     ended_recently = []
 
-    urgent = TODAY.date() + timedelta(days=SHOW_LAST_X_DAYS_OF_INIS + 1)
-    recent = (TODAY.date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
+    urgent = _today().date() + timedelta(days=SHOW_LAST_X_DAYS_OF_INIS + 1)
+    recent = (_today().date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
 
     for ini in inis:
         if not ini['end_of_this_phase']: continue
@@ -130,7 +136,7 @@ def generate_inis():
         for ini in vote_urgent:
             yield (" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
                   BASE_URL=VOTING_BASE_URL,
-                  weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
+                  weekday="HEUTE" if ini['end_of_this_phase'].day == _today().day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
 
         for ini in to_vote:
@@ -148,7 +154,7 @@ def generate_inis():
         for ini in discuss_urgent:
             yield (" - **[{title}]({BASE_URL}/initiative/{id}-{slug})**, endet {weekday}".format(
                   BASE_URL=VOTING_BASE_URL,
-                  weekday="HEUTE" if ini['end_of_this_phase'].day == TODAY.day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
+                  weekday="HEUTE" if ini['end_of_this_phase'].day == _today().day else DAYS_OF_WEEK[ini['end_of_this_phase'].weekday()],
                   **ini))
 
         for ini in to_discuss:
@@ -171,7 +177,7 @@ def generate_inis():
 
 
 def generate_events():
-    today_iso = TODAY.isoformat()
+    today_iso = _today().isoformat()
     resp = requests.get(EVENTS_URL)
     events = []
     for t in resp.json()['topics']:
@@ -203,10 +209,35 @@ Fehlt noch eine Veranstaltung? [Kündige diese passend auf dem Marktplatz an](ht
 
 
 def generate_community():
+    yield ("## Jetzt mitmischen")
+    yield ("")
+    resp = requests.get(NEW_TK_URL).json()
+    if "topics" in resp:
+        for p in resp["topics"]:
+            yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+                  BASE_URL=BASE_URL, **p))
+        yield ("")
+
+    resp = requests.get(SK_URL).json()
+    if "topics" in resp:
+        for p in resp["topics"]:
+            yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+                  BASE_URL=BASE_URL, **p))
+        yield ("")
+
+    earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
+
+    resp = requests.get(SURVEYS_URL.format(earliest.strftime("%Y-%m-%d"))).json()
+    if "topics" in resp:
+        for p in resp["topics"]:
+            yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
+                  BASE_URL=BASE_URL, **p))
+        yield ("")
+    yield ("")
     yield ("## Außerdem bewegt uns")
     yield ("")
 
-    yield ("_CURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
+    yield ("_KURATIERT. HIER EIN PAAR VORSCHLÄGE:_")
     for t in requests.get(TOP_URL).json()["topic_list"]["topics"]:
             yield (" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
                   BASE_URL=BASE_URL,
@@ -214,12 +245,17 @@ def generate_community():
                   **t))
 
 
+    yield ("")
+
+    yield ("## ❤️ Danke ❤️")
+
+    yield ("_Hier ein Danke eintragen, falls es eines gibt diese Woche._")
 
     yield ("")
 
     yield ("## Zitat der Woche")
 
-    recent = (TODAY.date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
+    recent = (_today().date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
     resp = requests.get(QUOTES_URL).json()
     new_quotes = sorted(filter(lambda x: x['created_at'] > recent,
                                resp["post_stream"]["posts"],),
@@ -253,8 +289,12 @@ Du hast Anregungen, Fragen, Kekse? [Melde Dich gerne bei uns](https://marktplatz
 """)
 
 def main():
-    for fn in [generate_header, generate_news, generate_inis,
-               generate_events, generate_community, generate_footer]:
+    for fn in [generate_header,
+               generate_news,
+               generate_inis,
+               generate_events, 
+               generate_community,
+               generate_footer]:
         for p in fn():
             print(p)
 
