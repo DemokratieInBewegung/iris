@@ -87,6 +87,8 @@ def generate_news():
     if "topics" in resp:
         yield ("### Partei Updates")
         yield ("")
+        yield("_Nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
+        yield("")
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
                   BASE_URL=BASE_URL, **p))
@@ -204,12 +206,14 @@ def generate_events():
         yield ("_keine Veranstaltungen geplant_")
     yield ("")
     yield ("""
-Fehlt noch eine Veranstaltung? [Kündige diese passend auf dem Marktplatz an](https://marktplatz.bewegung.jetzt/t/veranstaltungen-fuer-iris-ankuendigen/11128?source_topic_id=2720) und sie wird mit aufgenommen!
+Alle Veranstaltungen sind von nun an auch auf der [Webseite zu finden](https://bewegung.jetzt/veranstaltungen/), ([iCal Feed](https://bewegung.jetzt/?ical=1)). Und so kannst [Du eine eigene Veranstaltung einreichen](https://marktplatz.bewegung.jetzt/t/eine-veranstaltung-auf-der-webseite-einreichen/21379).
 """)
 
 
 def generate_community():
     yield ("## Jetzt mitmischen")
+    yield ("")
+    yield ("_Einige der Themen sind nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
     yield ("")
     resp = requests.get(NEW_TK_URL).json()
     if "topics" in resp:
