@@ -4,6 +4,7 @@ import requests
 from datetime import datetime, date, timedelta
 import dateutil.parser
 import os
+from icalendar import Calendar 
 
 if not "DC_TOKEN" in os.environ:
     print("Please specify the Discourse API token as DC_TOKEN!")
@@ -16,7 +17,7 @@ SHOW_LAST_X_DAYS_OF_INIS = 7
 
 BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=category:13 after:{} order:latest_topic"
-EVENTS_URL = BASE_URL + "/search.json?expanded=true&q=%23partei%20tags%3Averanstaltung%20status%3Aopen%20order%3Alatest_topic"
+EVENTS_URL = "https://bewegung.jetzt/events.ics"
 RECRUITING_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic".format(DC_TOKEN)
 PARTY_UPDATES_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:96 after:{{}} order:latest_topic".format(DC_TOKEN)
 TOP_URL = BASE_URL + "/top/weekly.json"
@@ -180,30 +181,31 @@ def generate_inis():
 
 def generate_events():
     today_iso = _today().isoformat()
+
     resp = requests.get(EVENTS_URL)
-    events = []
-    for t in resp.json()['topics']:
-        topic = requests.get(BASE_URL + "/t/{slug}/{id}.json".format(**t)).json()
-        if topic.get("event") and topic["event"]["start"] > today_iso:
-            topic["event"]["start"] = dateutil.parser.parse(topic["event"]["start"])
-            events.append(topic)
+    cal = Calendar.from_ical(resp.text)
 
 
     yield ("## Veranstaltungen")
     yield ("")
-    if events:
-        for e in sorted(events, key=lambda x: x["event"]["start"]):
-            location = ""
-            if "location" in e and "name" in e["location"]:
-                location = e["location"]["name"]
+    for evt in cal.walk(name="VEVENT"):
+        title = evt.decoded("SUMMARY").decode("utf-8")
+        date = evt.decoded("DTSTART")
 
-            yield (" - {date}: [{title}]({BASE_URL}/t/{slug}/{id}), {loc}".format(
-                    BASE_URL=BASE_URL,
-                    loc=location,
-                    date=e["event"]["start"].strftime("%d.&nbsp;%b"),
-                    **e)) 
-    else:
-        yield ("_keine Veranstaltungen geplant_")
+        if today_iso >= date.isoformat():
+            # happens between now and the day of this edition.
+            continue
+
+        if evt.decoded("CATEGORIES", b"").decode("utf-8") == "Telefonkonferenz" or \
+            "call" in title.lower():
+            # we don't show telefon conferences
+            continue
+
+        yield (" - {date}: [{title}]({URL}), {loc}".format(
+                URL=evt.decoded("URL"),
+                title=title,
+                loc=evt.decoded("LOCATION", b"").decode("utf-8").replace(", Deutschland",""),
+                date=evt.decoded("DTSTART").strftime("%d.&nbsp;%b")))
     yield ("")
     yield ("""
 Alle Veranstaltungen sind von nun an auch auf der [Webseite zu finden](https://bewegung.jetzt/veranstaltungen/), ([iCal Feed](https://bewegung.jetzt/?ical=1)). Und so kannst [Du eine eigene Veranstaltung einreichen](https://marktplatz.bewegung.jetzt/t/eine-veranstaltung-auf-der-webseite-einreichen/21379).
