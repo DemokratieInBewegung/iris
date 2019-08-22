@@ -14,8 +14,8 @@ Iris wird kuratiert von:
 
 <div class="profiles" markdown="1">
 
-- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/johanna/240/5270_1.png) <br/> **Johanna Mertens** <br/> [@johanna](https://marktplatz.bewegung.jetzt/u/johanna/summary)
-- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/leia/240/4992_1.png) <br/> **Lea Brunn** <br/> [@leia](https://marktplatz.bewegung.jetzt/u/leia/summary)
+- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/guido/240/13632_2.png) <br/> **Guido Drehsen** <br/> [@guido](https://marktplatz.bewegung.jetzt/u/guido/summary)
+- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/michaelvoss/240/5585_2.png) <br/> **Michael Voß** <br/> [@michaelvoss](https://marktplatz.bewegung.jetzt/u/michaelvoss/summary)
 - ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/ben/240/16_1.png) <br/> **Benjamin Kampmann** <br/> [@ben](https://marktplatz.bewegung.jetzt/u/ben/summary)
 
 </div>
@@ -27,9 +27,9 @@ Verantwortlich für den Inhalt (v.i.S.d.P. gem. § 55 Abs. 2 RStV):
 
 <address>
 DEMOKRATIE IN BEWEGUNG - DiB<br/>
-Vorstandsvorsitzende Alexander Plitsch, Julia Beerhold<br/>
-Brunnenstr. 64/65<br/>
-13355 Berlin, Deutschland
+Vorstandsvorsitzende Franka Kretschmer, Guido Drehsen<br/>
+Lola-Fischel-Straße 18<br/>
+30173 Hannover, Deutschland
 </address>
 
 Kontakt über <hallo@bewegung.jetzt>
