@@ -196,10 +196,10 @@ def generate_events():
             # happens between now and the day of this edition.
             continue
 
-        if evt.decoded("CATEGORIES", b"").decode("utf-8") == "Telefonkonferenz" or \
-            "call" in title.lower():
-            # we don't show telefon conferences
-            continue
+#        if evt.decoded("CATEGORIES", b"").decode("utf-8") == "Telefonkonferenz" or \
+#            "call" in title.lower():
+#            # we don't show telefon conferences
+#            continue
 
         yield (" - {date}: [{title}]({URL}), {loc}".format(
                 URL=evt.decoded("URL"),
