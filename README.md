@@ -29,7 +29,9 @@ aus.
 Innerhalb der virtuellen Umgebung (siehe oben), das folgende Kommando ausführen um die neue Edition mit dem aktuellen Datum zu generieren:
 
 ```
-python generate.py > > _posts/`date +%Y-%m-%d-DiB-digest-%Y.%W.md`
+python generate.py >> posts/`date +%Y-%m-%d-DiB-digest-%Y.%W.md`
+# oder wenn python 2 und 3 auf dem Rechner sind dann mit
+python3 generate.py >> posts/iris-`date +%Y-%W.md`
 ```
 
 # Writer's Guideline
