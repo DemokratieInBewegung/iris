@@ -16,7 +16,6 @@ Iris wird kuratiert von:
 
 - ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/guido/240/13632_2.png) <br/> **Guido Drehsen** <br/> [@guido](https://marktplatz.bewegung.jetzt/u/guido/summary)
 - ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/michaelvoss/240/5585_2.png) <br/> **Michael Voß** <br/> [@michaelvoss](https://marktplatz.bewegung.jetzt/u/michaelvoss/summary)
-- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/ben/240/16_1.png) <br/> **Benjamin Kampmann** <br/> [@ben](https://marktplatz.bewegung.jetzt/u/ben/summary)
 
 </div>
 
