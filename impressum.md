@@ -6,7 +6,7 @@ path: /impressum/
 
 Diese Zusammenfassung wird mit einem automatischen Script aus Informationen vom Plenum und Marktplatz generiert und dann von der Redaktion kuratiert.
 
-**Redaktionsschluss ist Freitags um 19:00 Uhr MEZ.**
+**Redaktionsschluss ist Freitags um 19:00 Uhr MEZ/MESZ.**
 
 ## Kurator\*innen
 
