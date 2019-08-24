@@ -289,9 +289,9 @@ def generate_footer():
     yield ("""
 ---
 
-Iris wurde in dieser Woche zusammengestellt von [Ben](https://marktplatz.bewegung.jetzt/u/Ben/), [Guido](https://marktplatz.bewegung.jetzt/u/Guido/) und [Michael](https://marktplatz.bewegung.jetzt/u/MichaelVoss/).
+Iris wurde in dieser Woche zusammengestellt von [Guido](https://marktplatz.bewegung.jetzt/u/Guido/) und [Michael](https://marktplatz.bewegung.jetzt/u/MichaelVoss/).
 
-Du hast Anregungen, Fragen, Kekse? [Melde Dich gerne bei uns](https://marktplatz.bewegung.jetzt/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
+Du hast Anregungen und Fragen? [Melde Dich gerne bei uns](https://marktplatz.bewegung.jetzt/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
 """)
 
 def main():
