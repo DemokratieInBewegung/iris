@@ -13,6 +13,10 @@ virtualenv .
 source bin/activate
 pip install -r requirements.txt
 ```
+bei phython3 mit
+```
+pip3 install -r requirements.txt
+```
 
 ### Virtuelle Umgebung
 
