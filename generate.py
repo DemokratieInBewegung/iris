@@ -18,14 +18,14 @@ SHOW_LAST_X_DAYS_OF_INIS = 7
 BASE_URL = "https://marktplatz.bewegung.jetzt"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=category:13 after:{} order:latest_topic"
 EVENTS_URL = "https://bewegung.jetzt/events.ics"
-RECRUITING_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic".format(DC_TOKEN)
-PARTY_UPDATES_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:96 after:{{}} order:latest_topic".format(DC_TOKEN)
+RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic"
+PARTY_UPDATES_URL = BASE_URL + "/search.json?expanded=true&q=category:96 after:{} order:latest_topic"
 TOP_URL = BASE_URL + "/top/weekly.json"
-NEW_TK_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:169 status:open order:latest_topic".format(DC_TOKEN)
-SK_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=category:153 status:open after:2018-01-10 order:latest_topic".format(DC_TOKEN)
-SURVEYS_URL = BASE_URL + "/search.json?api_key={}&api_username=system&expanded=true&q=tags:umfrage,stimmungsbild,mitmachen status:open after:{{}} order:latest_topic".format(DC_TOKEN)
+NEW_TK_URL = BASE_URL + "/search.json?expanded=true&q=category:169 status:open order:latest_topic"
+SK_URL = BASE_URL + "/search.json?expanded=true&q=category:153 status:open after:2018-01-10 order:latest_topic"
+SURVEYS_URL = BASE_URL + "/search.json?expanded=true&q=tags:umfrage,stimmungsbild,mitmachen status:open after:{} order:latest_topic"
 
-QUOTES_URL = "https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175.json?api_key={}&api_username=system".format(DC_TOKEN)
+QUOTES_URL = BASE_URL + "/t/lustige-dib-zitate/10175.json"
 
 def _today():
     today = datetime.today()
@@ -75,7 +75,7 @@ def generate_news():
 
     yield ("")
 
-    resp = requests.get(RECRUITING_URL).json()
+    resp = requests.get(RECRUITING_URL, headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         yield ("### Aktuelle Gesuche")
         yield ("")
@@ -84,7 +84,7 @@ def generate_news():
                   BASE_URL=BASE_URL, **p))
         yield ("")
 
-    resp = requests.get(PARTY_UPDATES_URL.format(earliest.strftime("%Y-%m-%d"))).json()
+    resp = requests.get(PARTY_UPDATES_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         yield ("### Partei Updates")
         yield ("")
@@ -148,7 +148,7 @@ def generate_inis():
 
     else:
         # We show this every time to ensure People know it isn't left out
-        yield ("_Es aktuell keine Initiativen zur Abstimmung_")
+        yield ("_Es gibt aktuell keine Initiativen zur Abstimmung_")
 
 
     if discuss_urgent or to_discuss:
@@ -217,14 +217,14 @@ def generate_community():
     yield ("")
     yield ("_Einige der Themen sind nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
     yield ("")
-    resp = requests.get(NEW_TK_URL).json()
+    resp = requests.get(NEW_TK_URL, headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
                   BASE_URL=BASE_URL, **p))
         yield ("")
 
-    resp = requests.get(SK_URL).json()
+    resp = requests.get(SK_URL, headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
@@ -233,7 +233,7 @@ def generate_community():
 
     earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
 
-    resp = requests.get(SURVEYS_URL.format(earliest.strftime("%Y-%m-%d"))).json()
+    resp = requests.get(SURVEYS_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
@@ -262,7 +262,7 @@ def generate_community():
     yield ("## Zitat der Woche")
 
     recent = (_today().date() - timedelta(days=SHOW_LAST_X_DAYS_OF_INIS)).isoformat()
-    resp = requests.get(QUOTES_URL).json()
+    resp = requests.get(QUOTES_URL, headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     new_quotes = sorted(filter(lambda x: x['created_at'] > recent,
                                resp["post_stream"]["posts"],),
                         reverse=True,
