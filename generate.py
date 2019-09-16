@@ -54,7 +54,7 @@ email_subject: HIER_EINTRAGEN — Iris {edition}
 
 ---
 
-""".format(edition=_today().strftime("%Y/%W"),
+""".format(edition=_today().strftime("%Y/%V"),
            date=_today().strftime("%d %B %Y")))
 
 
