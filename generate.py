@@ -28,7 +28,7 @@ NEW_TK_URL = BASE_URL + "/search.json?expanded=true&q=category:169 status:open o
 SK_URL = BASE_URL + "/search.json?expanded=true&q=category:153 status:open after:2018-01-10 order:latest_topic"
 SURVEYS_URL = BASE_URL + "/search.json?expanded=true&q=tags:umfrage,stimmungsbild,mitmachen status:open after:{} order:latest_topic"
 
-QUOTES_URL = BASE_URL + "/t/lustige-dib-zitate/10175.json"
+QUOTES_URL = BASE_URL + "/t/fortsetzung-lustige-dib-zitate/24431/100.json"
 
 def _today():
     today = datetime.today()
