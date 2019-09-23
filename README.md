@@ -33,9 +33,9 @@ aus.
 Innerhalb der virtuellen Umgebung (siehe oben), das folgende Kommando ausführen um die neue Edition mit dem aktuellen Datum zu generieren:
 
 ```
-python generate.py >> posts/iris-`date +%Y-%V.md`
+python generate.py >> posts/iris-`date +%G-%V.md`
 # oder wenn python 2 und 3 auf dem Rechner sind dann mit
-python3 generate.py >> posts/iris-`date +%Y-%V.md`
+python3 generate.py >> posts/iris-`date +%G-%V.md`
 ```
 
 # Writer's Guideline
