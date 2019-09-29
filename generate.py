@@ -294,7 +294,7 @@ def generate_footer():
 
 Iris wurde in dieser Woche zusammengestellt von [Guido](https://marktplatz.bewegung.jetzt/u/Guido/) und [Michael](https://marktplatz.bewegung.jetzt/u/MichaelVoss/).
 
-Du hast Anregungen und Fragen? [Melde Dich gerne bei uns](https://marktplatz.bewegung.jetzt/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
+Du hast Anregungen oder Fragen? [Melde Dich gerne bei uns](https://marktplatz.bewegung.jetzt/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
 """)
 
 def main():
