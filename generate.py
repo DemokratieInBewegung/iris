@@ -4,7 +4,7 @@ import requests
 from datetime import datetime, date, timedelta
 import dateutil.parser
 import os
-import locale
+#import locale
 from icalendar import Calendar 
 
 if not "DC_TOKEN" in os.environ:
@@ -13,7 +13,7 @@ if not "DC_TOKEN" in os.environ:
 
 DC_TOKEN = os.environ['DC_TOKEN']
 
-locale.setlocale(locale.LC_ALL,'de_DE.UTF-8')
+#locale.setlocale(locale.LC_ALL,'de_DE.UTF-8')
 
 SHOW_LAST_X_DAYS_OF_NEWS = 8
 SHOW_LAST_X_DAYS_OF_INIS = 7
