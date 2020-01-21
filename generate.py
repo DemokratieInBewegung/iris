@@ -220,14 +220,16 @@ def generate_community():
     yield ("")
     yield ("_Einige der Themen sind nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
     yield ("")
-    resp = requests.get(NEW_TK_URL, headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
+    earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
+    resp = requests.get(NEW_TK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
                   BASE_URL=BASE_URL, **p))
         yield ("")
 
-    resp = requests.get(SK_URL, headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
+    earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
+    resp = requests.get(SK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
