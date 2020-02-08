@@ -62,11 +62,11 @@ def generate_news():
     earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS)
     resp = requests.get(NEWS_URL.format(earliest.strftime("%Y-%m-%d")))
     topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
-                    resp.json()["topics"])
+                    resp.json())
 
     yield ("## Neuigkeiten")
     yield ("")
-    if topics:
+    if "topics" in resp:
         for t in topics:
             yield (" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
                   BASE_URL=BASE_URL,
@@ -221,24 +221,27 @@ def generate_community():
     yield ("_Einige der Themen sind nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
     yield ("")
     earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
-    resp = requests.get(NEW_TK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
+    resp = requests.get(NEW_TK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN})
+    topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
+                    resp.json())
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
                   BASE_URL=BASE_URL, **p))
         yield ("")
 
-    earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
-    resp = requests.get(SK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
+    resp = requests.get(SK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN})
+    topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
+                    resp.json())
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
                   BASE_URL=BASE_URL, **p))
         yield ("")
 
-    earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
-
-    resp = requests.get(SURVEYS_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN}).json()
+    resp = requests.get(SURVEYS_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN})
+    topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
+                    resp.json())
     if "topics" in resp:
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
