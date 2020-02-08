@@ -207,7 +207,7 @@ def generate_events():
         yield (" - {date}: [{title}]({URL}), {loc}".format(
                 URL=evt.decoded("URL"),
                 title=title,
-                loc=evt.decoded("LOCATION", b"").decode("utf-8").replace(", Deutschland",""),
+                loc=evt.decoded("LOCATION", b"").decode("utf-8").replace(", Deutschland","").replace("*","\*"),
                 date=evt.decoded("DTSTART").strftime("%d.&nbsp;%b")))
     yield ("")
     yield ("""
