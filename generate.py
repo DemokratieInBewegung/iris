@@ -25,7 +25,6 @@ RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=category:94 status:ope
 PARTY_UPDATES_URL = BASE_URL + "/search.json?expanded=true&q=category:96 after:{} order:latest_topic"
 TOP_URL = BASE_URL + "/top/weekly.json"
 NEW_TK_URL = BASE_URL + "/search.json?expanded=true&q=category:169 status:open order:latest_topic"
-SK_URL = BASE_URL + "/search.json?expanded=true&q=category:153 status:open after:2018-01-10 order:latest_topic"
 SURVEYS_URL = BASE_URL + "/search.json?expanded=true&q=tags:umfrage,stimmungsbild,mitmachen status:open after:{} order:latest_topic"
 
 QUOTES_URL = BASE_URL + "/t/fortsetzung-lustige-dib-zitate/24431/100.json"
@@ -222,15 +221,6 @@ def generate_community():
     yield ("")
     earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
     resp = requests.get(NEW_TK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN})
-    topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
-                    resp.json())
-    if "topics" in resp:
-        for p in resp["topics"]:
-            yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
-                  BASE_URL=BASE_URL, **p))
-        yield ("")
-
-    resp = requests.get(SK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN})
     topics = filter(lambda x: x["created_at"] >= earliest.isoformat(),
                     resp.json())
     if "topics" in resp:
