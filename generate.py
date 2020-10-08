@@ -280,7 +280,7 @@ def generate_community():
     else:
         yield ("_Diese Woche ist uns kein lustiges DiB-Zitat zugespielt worden ☹._")
     yield ("")
-    yield ("Du hast ein gutes Zitat? [Dann reiche es hier ein.](https://marktplatz.bewegung.jetzt/t/lustige-dib-zitate/10175)")
+    yield ("Du hast ein gutes Zitat? [Dann reiche es hier ein.](https://marktplatz.bewegung.jetzt/t/fortsetzung-lustige-dib-zitate/24431)")
     yield ("")
 
 def generate_footer():
