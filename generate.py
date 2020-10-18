@@ -1,4 +1,5 @@
 #!/bin/env python
+# -*- coding: utf-8 -*-
 
 import requests
 from datetime import datetime, date, timedelta
@@ -69,7 +70,7 @@ def generate_news():
         for t in topics:
             yield (" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
                   BASE_URL=BASE_URL,
-                  state="abgeschlossen " if t["closed"] else "",
+                  state="🔒 " if t["closed"] else "",
                   **t))
 
     else:
