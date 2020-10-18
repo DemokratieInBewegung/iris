@@ -69,7 +69,7 @@ def generate_news():
         for t in topics:
             yield (" - {state}[{fancy_title}]({BASE_URL}/t/{slug}/{id}) ({posts_count})".format(
                   BASE_URL=BASE_URL,
-                  state="🔒 " if t["closed"] else "",
+                  state="abgeschlossen " if t["closed"] else "",
                   **t))
 
     else:
