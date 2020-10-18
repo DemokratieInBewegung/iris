@@ -26,7 +26,7 @@ Verantwortlich für den Inhalt (v.i.S.d.P. gem. § 55 Abs. 2 RStV):
 
 <address>
 DEMOKRATIE IN BEWEGUNG - DiB<br/>
-Vorstandsvorsitzende Franka Kretschmer, Guido Drehsen<br/>
+Vorstandsvorsitz: Guido Drehsen<br/>
 Lola-Fischel-Straße 18<br/>
 30173 Hannover, Deutschland
 </address>
