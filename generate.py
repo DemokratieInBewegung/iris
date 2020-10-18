@@ -49,9 +49,9 @@ extends: default.liquid
 title: HIER_EINTRAGEN
 edition: {edition}
 date: {date} 4:00:00 +0100
-email_subject: HIER_EINTRAGEN — Iris {edition}
+email_subject: HIER_EINTRAGEN - Iris {edition}
 
-----
+---
 
 """.format(edition=_today().strftime("%G/%V"),
            date=_today().strftime("%d %B %Y")))
