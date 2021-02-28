@@ -1,4 +1,3 @@
-deploy.skip_cleanup: true
 dist: bionic
 os:
 - linux
@@ -30,7 +29,8 @@ before_deploy:
 
 deploy:
   provider: script
-  cleanup: true
+  cleanup: false
+  skip_cleanup: true
   script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/$COBALT_BUILD_DIR/ root@nick.bewegung.jetzt:/var/dib/iris/build
   on:
     branch: master
