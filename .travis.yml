@@ -1,3 +1,4 @@
+deploy.skip_cleanup: true
 dist: bionic
 os:
 - linux
