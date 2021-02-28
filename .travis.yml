@@ -1,7 +1,6 @@
 dist: bionic
 os:
 - linux
-- windows
 language: ruby
 addons:
   ssh_known_hosts: nick.bewegung.jetzt
