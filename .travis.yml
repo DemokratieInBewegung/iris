@@ -1,6 +1,6 @@
-dist:bionic
-os:linux
-language:ruby
+dist: bionic
+os: linux
+language: ruby
 addons:
   ssh_known_hosts: nick.bewegung.jetzt
 env:
