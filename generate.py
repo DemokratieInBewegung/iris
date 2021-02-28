@@ -7,9 +7,9 @@ import dateutil.parser
 import os
 from icalendar import Calendar 
 
-if os.name == 'nt':
-    import locale
-    locale.setlocale(locale.LC_ALL,'de_DE.UTF-8')
+#if os.name == 'nt':
+#    import locale
+#    locale.setlocale(locale.LC_ALL,'de_DE.UTF-8')
 
 if not "DC_TOKEN" in os.environ:
     print("Please specify the Discourse API token as DC_TOKEN!")
