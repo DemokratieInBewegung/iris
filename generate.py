@@ -7,10 +7,6 @@ import dateutil.parser
 import os
 from icalendar import Calendar 
 
-#if os.name == 'nt':
-#    import locale
-#    locale.setlocale(locale.LC_ALL,'de_DE.UTF-8')
-
 if not "DC_TOKEN" in os.environ:
     print("Please specify the Discourse API token as DC_TOKEN!")
     exit(1)
@@ -58,6 +54,11 @@ email_subject: HIER_EINTRAGEN - Iris {edition}
 """.format(edition=_today().strftime("%G/%V"),
            date=_today().strftime("%d %B %Y")))
 
+    #use German date format after Header was printed:
+    if os.name == 'nt':
+        import locale
+        locale.setlocale(locale.LC_ALL,'de_DE.UTF-8')
+        
 
 def generate_news():
     earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS)
