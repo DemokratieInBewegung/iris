@@ -213,7 +213,7 @@ def generate_events():
                 date=evt.decoded("DTSTART").strftime("%d.&nbsp;%b")))
     yield ("")
     yield ("""
-Alle Veranstaltungen sind von nun an auch auf der [Webseite zu finden](https://bewegung.jetzt/veranstaltungen/), ([iCal Feed](https://bewegung.jetzt/?ical=1)). Und so kannst [Du eine eigene Veranstaltung einreichen](https://marktplatz.bewegung.jetzt/t/eine-veranstaltung-auf-der-webseite-einreichen/21379).
+Alle Veranstaltungen sind auch auf der [Webseite zu finden](https://bewegung.jetzt/veranstaltungen/), ([iCal Feed](https://bewegung.jetzt/?ical=1)). Und so kannst [Du eine eigene Veranstaltung einreichen](https://marktplatz.bewegung.jetzt/t/eine-veranstaltung-auf-der-webseite-einreichen/21379).
 """)
 
 
