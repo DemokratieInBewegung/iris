@@ -26,7 +26,7 @@ Verantwortlich für den Inhalt (v.i.S.d.P. gem. § 55 Abs. 2 RStV):
 
 <address>
 DEMOKRATIE IN BEWEGUNG - DiB<br/>
-Vorstandsvorsitz: Sigrid Ott, Guido Drehsen<br/>
+Vorstandsvorsitz: Sabine Onayli, Guido Drehsen<br/>
 Lola-Fischel-Straße 18<br/>
 30173 Hannover, Deutschland
 </address>
