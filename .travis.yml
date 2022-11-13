@@ -5,7 +5,7 @@ language: ruby
 branches:
 - master
 addons:
-  ssh_known_hosts: nick.bewegung.jetzt
+  ssh_known_hosts: iris.bewegung.jetzt
 env:
 - COBALT_BUILD_DIR: build
 before_script:
