@@ -1,5 +1,5 @@
 # digest
-Ein wöchtlicher Rück- und Ausblick über die Vorgänge in DEMOKRATIE IN BEWEGUNG
+Ein wöchentlicher Rück- und Ausblick über die Vorgänge in DEMOKRATIE IN BEWEGUNG
 
 
 ## Setup
