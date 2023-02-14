@@ -187,7 +187,7 @@ def generate_inis():
 def generate_events():
     today_iso = _today().isoformat()
 
-    resp = requests.get(EVENTS_URL)
+    resp = requests.get(EVENTS_URL, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0"})
     cal = Calendar.from_ical(resp.text)
 
 
