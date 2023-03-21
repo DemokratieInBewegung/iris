@@ -16,9 +16,9 @@ DC_TOKEN = os.environ['DC_TOKEN']
 SHOW_LAST_X_DAYS_OF_NEWS = 8
 SHOW_LAST_X_DAYS_OF_INIS = 7
 
-BASE_URL = "https://marktplatz.bewegung.jetzt"
+BASE_URL = "https://marktplatz.dib.de"
 NEWS_URL = BASE_URL + "/search.json?expanded=true&q=category:13 after:{} order:latest_topic"
-EVENTS_URL = "https://bewegung.jetzt/events.ics"
+EVENTS_URL = "https://dib.de/events.ics"
 RECRUITING_URL = BASE_URL + "/search.json?expanded=true&q=category:94 status:open after:2017-10-10 order:latest_topic"
 PARTY_UPDATES_URL = BASE_URL + "/search.json?expanded=true&q=category:96 after:{} order:latest_topic"
 TOP_URL = BASE_URL + "/top/weekly.json"
@@ -34,7 +34,7 @@ def _today():
         today += timedelta(days=6 - today.weekday())
     return today
 
-VOTING_BASE_URL = "https://abstimmen.bewegung.jetzt"
+VOTING_BASE_URL = "https://abstimmen.dib.de"
 VOTING_URL = VOTING_BASE_URL + "/?f=d&f=v&f=a&f=r"
 
 DAYS_OF_WEEK = ["Montag", "Dienstag", "Mittwoch", "Donnerstag",
@@ -93,7 +93,7 @@ def generate_news():
     if "topics" in resp:
         yield ("### Partei Updates")
         yield ("")
-        yield("_Nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
+        yield("_Nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://dib.de/bewegerin-werden/).")
         yield("")
         for p in resp["topics"]:
             yield (" - [{title}]({BASE_URL}/t/{slug}/{id})".format(
@@ -213,14 +213,14 @@ def generate_events():
                 date=evt.decoded("DTSTART").strftime("%d.&nbsp;%b")))
     yield ("")
     yield ("""
-Alle Veranstaltungen sind auch auf der [Webseite zu finden](https://bewegung.jetzt/veranstaltungen/), ([iCal Feed](https://bewegung.jetzt/?ical=1)). Und so kannst [Du eine eigene Veranstaltung einreichen](https://marktplatz.bewegung.jetzt/t/eine-veranstaltung-auf-der-webseite-einreichen/21379).
+Alle Veranstaltungen sind auch auf der [Webseite zu finden](https://dib.de/veranstaltungen/), ([iCal Feed](https://dib.de/?ical=1)). Und so kannst [Du eine eigene Veranstaltung einreichen](https://marktplatz.dib.de/t/eine-veranstaltung-auf-der-webseite-einreichen/21379).
 """)
 
 
 def generate_community():
     yield ("## Jetzt mitmischen")
     yield ("")
-    yield ("_Einige der Themen sind nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://bewegung.jetzt/bewegerin-werden/).")
+    yield ("_Einige der Themen sind nur für Mitglieder und verifizierte Beweger\*innen einsehbar_. [Jetzt als Beweger\*in verifizieren](https://dib.de/bewegerin-werden/).")
     yield ("")
     earliest = _today() - timedelta(days=SHOW_LAST_X_DAYS_OF_NEWS*2)
     resp = requests.get(NEW_TK_URL.format(earliest.strftime("%Y-%m-%d")), headers={"Api-Username":"system","Api-Key":DC_TOKEN})
@@ -283,16 +283,16 @@ def generate_community():
     else:
         yield ("_Diese Woche ist uns kein lustiges DiB-Zitat zugespielt worden ☹._")
     yield ("")
-    yield ("Du hast ein gutes Zitat? [Dann reiche es hier ein.](https://marktplatz.bewegung.jetzt/t/fortsetzung-lustige-dib-zitate/24431)")
+    yield ("Du hast ein gutes Zitat? [Dann reiche es hier ein.](https://marktplatz.dib.de/t/fortsetzung-lustige-dib-zitate/24431)")
     yield ("")
 
 def generate_footer():
     yield ("""
 ---
 
-Iris wurde in dieser Woche zusammengestellt von [Guido](https://marktplatz.bewegung.jetzt/u/Guido/) und [Michael](https://marktplatz.bewegung.jetzt/u/MichaelVoss/).
+Iris wurde in dieser Woche zusammengestellt von [Guido](https://marktplatz.dib.de/u/Guido/) und [Michael](https://marktplatz.dib.de/u/MichaelVoss/).
 
-Du hast Anregungen oder Fragen? [Melde Dich gerne bei uns](https://marktplatz.bewegung.jetzt/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
+Du hast Anregungen oder Fragen? [Melde Dich gerne bei uns](https://marktplatz.dib.de/t/neu-iris-die-woechtliche-zusammenfasssung-zum-sonntagsbrunch/10990)!
 """)
 
 def main():
