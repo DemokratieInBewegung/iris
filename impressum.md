@@ -14,8 +14,8 @@ Iris wird kuratiert von:
 
 <div class="profiles" markdown="1">
 
-- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/guido/240/13632_2.png) <br/> **Guido Drehsen** <br/> [@guido](https://marktplatz.bewegung.jetzt/u/guido/summary)
-- ![](https://marktplatz.bewegung.jetzt/user_avatar/marktplatz.bewegung.jetzt/michaelvoss/240/5585_2.png) <br/> **Michael Voß** <br/> [@michaelvoss](https://marktplatz.bewegung.jetzt/u/michaelvoss/summary)
+- ![](https://marktplatz.dib.de/user_avatar/marktplatz.dib.de/guido/240/13632_2.png) <br/> **Guido Drehsen** <br/> [@guido](https://marktplatz.dib.de/u/guido/summary)
+- ![](https://marktplatz.dib.de/user_avatar/marktplatz.dib.de/michaelvoss/240/5585_2.png) <br/> **Michael Voß** <br/> [@michaelvoss](https://marktplatz.dib.de/u/michaelvoss/summary)
 
 </div>
 
@@ -31,4 +31,4 @@ Lola-Fischel-Straße 18<br/>
 30173 Hannover, Deutschland
 </address>
 
-Kontakt über <hallo@bewegung.jetzt>
+Kontakt über <hallo@dib.de>
